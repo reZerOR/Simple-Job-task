@@ -1,6 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import "../../App.css";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut().then().catch();
+  };
   const links = (
     <>
       <li
@@ -24,31 +30,44 @@ const Navbar = () => {
       >
         <NavLink to={"/about"}>About Us</NavLink>
       </li>
-      <li
-        data-aos="fade-down"
-        data-aos-anchor-placement="top-bottom"
-        data-aos-delay="400"
-      >
-        <Link style={{ border: "2px solid #739072" }} to={"/login"}>
-          Login
-        </Link>
-      </li>
-      <li
-        data-aos="fade-down"
-        data-aos-anchor-placement="top-bottom"
-        data-aos-delay="500"
-      >
-        <Link
-          style={{
-            padding: "8px 16px",
-            color: "white",
-            backgroundColor: "#739072",
-          }}
-          to={"/login"}
+      {user ? (
+        <li
+          onClick={handleLogOut}
+          data-aos="fade-down"
+          data-aos-anchor-placement="top-bottom"
+          data-aos-delay="400"
         >
-          Register
-        </Link>
-      </li>
+          <a style={{ border: "2px solid #739072" }}>Log Out</a>
+        </li>
+      ) : (
+        <>
+          <li
+            data-aos="fade-down"
+            data-aos-anchor-placement="top-bottom"
+            data-aos-delay="400"
+          >
+            <Link style={{ border: "2px solid #739072" }} to={"/login"}>
+              Login
+            </Link>
+          </li>
+          <li
+            data-aos="fade-down"
+            data-aos-anchor-placement="top-bottom"
+            data-aos-delay="500"
+          >
+            <Link
+              style={{
+                padding: "8px 16px",
+                color: "white",
+                backgroundColor: "#739072",
+              }}
+              to={"/register"}
+            >
+              Register
+            </Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (

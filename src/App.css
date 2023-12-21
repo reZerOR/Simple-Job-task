@@ -41,3 +41,8 @@
     opacity: 1;
   }
 }
+.file-input::file-selector-button {
+  background-color: #4f6f52;
+  color: white;
+  border: 0px;
+}
