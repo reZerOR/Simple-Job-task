@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import SocialLogin from "./SocialLogin";
@@ -10,7 +10,6 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
   const { signIn } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation();
   const [error, setError] = useState("");
 
   const onSubmit = (data) => {
@@ -27,7 +26,7 @@ const Login = () => {
             popup: "animate__animated animate__fadeOutUp",
           },
         });
-        navigate(location.state?.from?.pathname || "/");
+        navigate("/dashboard/tasklist");
       })
       .catch((error) => {
         console.log(error);

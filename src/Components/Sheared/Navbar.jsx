@@ -21,14 +21,7 @@ const Navbar = () => {
         data-aos-anchor-placement="top-bottom"
         data-aos-delay="200"
       >
-        <NavLink to={"/dashboard"}>Dashboard</NavLink>
-      </li>
-      <li
-        data-aos="fade-down"
-        data-aos-anchor-placement="top-bottom"
-        data-aos-delay="300"
-      >
-        <NavLink to={"/about"}>About Us</NavLink>
+        <NavLink to={"/dashboard/tasklist"}>Dashboard</NavLink>
       </li>
       {user ? (
         <li

@@ -1,10 +1,18 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        navigate("/");
+      })
+      .catch();
+  };
   const adminSidenav = (
     <>
       <li
@@ -33,7 +41,7 @@ const Dashboard = () => {
         data-aos-delay="400"
         data-aos-anchor-placement="top-bottom"
       >
-        <NavLink to={"logout"}>Log Out</NavLink>
+        <Link onClick={handleLogOut}>Log Out</Link>
       </li>
     </>
   );

@@ -7,10 +7,14 @@ import Dashboard from "../Layouts/Dashboard";
 import AddTask from "../Pages/Addtask/AddTask";
 import PreviousTasks from "../Pages/PreviousTasks.jsx/PreviousTasks";
 import TaskList from "../Pages/TaskList/TaskList";
+import Edittask from "../Pages/Edittask/Edittask";
+import PrivateRoute from "./PrivateRoute";
+import Errorpage from "../Pages/Errorpage/Errorpage";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <Errorpage></Errorpage>,
     children: [
       {
         path: "/",
@@ -28,19 +32,43 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "addtask",
-        element: <AddTask></AddTask>,
+        element: (
+          <PrivateRoute>
+            <AddTask></AddTask>
+          </PrivateRoute>
+        ),
       },
       {
         path: "preavioustasks",
-        element: <PreviousTasks></PreviousTasks>,
+        element: (
+          <PrivateRoute>
+            <PreviousTasks></PreviousTasks>
+          </PrivateRoute>
+        ),
       },
       {
         path: "tasklist",
-        element: <TaskList></TaskList>,
+        element: (
+          <PrivateRoute>
+            <TaskList></TaskList>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "edittask/:id",
+        element: (
+          <PrivateRoute>
+            <Edittask></Edittask>
+          </PrivateRoute>
+        ),
       },
     ],
   },

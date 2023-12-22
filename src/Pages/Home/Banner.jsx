@@ -1,6 +1,10 @@
+import { Link } from "react-router-dom";
 import banner from "../../assets/notes-flatline.svg";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Banner = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div className="bg-gray60 min-h-[calc(100vh-61.5px)] flex items-center">
       {/* banner */}
@@ -35,13 +39,17 @@ const Banner = () => {
             productivity.
             <br /> Organize, track, and conquer goals effectively with ToDoest
           </p>
-          <button
-            data-aos="fade-up"
-            data-aos-delay="400"
-            data-aos-anchor-placement="top-bottom"
-            className="py-2 px-4 text-white bg-green-dark rounded-lg"
-          >
-            Let{"'"}s Explore
+          <button>
+            {" "}
+            <Link
+              to={user ? "/dashboard/tasklist" : "/login"}
+              data-aos="fade-up"
+              data-aos-delay="400"
+              data-aos-anchor-placement="top-bottom"
+              className="py-2 px-4 text-white bg-green-dark rounded-lg"
+            >
+              Let{"'"}s Explore
+            </Link>
           </button>
         </div>
         {/* banner image */}

@@ -10,7 +10,7 @@ const SocialLogin = () => {
   const handleGoogleLogin = () => {
     googleSignIn().then((res) => {
       console.log(res.user);
-      navigate("/");
+      navigate("/dashboard/tasklist");
     });
   };
   return (

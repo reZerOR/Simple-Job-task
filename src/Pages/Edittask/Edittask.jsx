@@ -1,38 +1,39 @@
-import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa";
-import { AuthContext } from "../../Provider/AuthProvider";
+
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
-const AddTask = () => {
-  const { user } = useContext(AuthContext);
+
+const Edittask = () => {
+  const { id } = useParams();
+
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+
+  const { data: task = {} } = useQuery({
+    queryKey: ["task", id],
+    queryFn: async () => {
+      const res = await axiosPublic(`/tasks/${id}`);
+      return res.data;
+    },
+  });
   const onSubmit = async (data) => {
     console.log(data);
-    const taskInfo = {
-      email: user?.email,
-      title: data.title,
-      description: data.description,
-      deadline: data.deadline,
-      priority: data.priority,
-      status: "todo",
-    };
-    console.log(taskInfo);
 
-    const res = await axiosPublic.post("/tasks", taskInfo);
+    const res = await axiosPublic.put(`/tasks/${id}`, data);
     console.log(res.data);
-    if (res.data.insertedId) {
+    if (res.data.modifiedCount > 0) {
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: "Task added successfully.",
+        title: "Task Edited Successfully",
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate("/dashboard/tasklist");
+      navigate("/dashboard/preavioustasks");
     }
   };
   return (
@@ -41,7 +42,7 @@ const AddTask = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-gray60 space-y-3 w-full shadow-2xl md:w-2/3 lg:w-2/3  2xl:w-1/3 mx-auto my-auto p-6 rounded-lg"
       >
-        <h2 className="text-2xl font-bold">Add Task</h2>
+        <h2 className="text-2xl font-bold">Edit Task</h2>
         {/* title */}
         <label
           data-aos="fade-up"
@@ -55,7 +56,8 @@ const AddTask = () => {
           <input
             type="text"
             placeholder="Title"
-            {...register("title", { required: true })}
+            {...register("title")}
+            defaultValue={task?.title}
             className="input input-bordered w-full"
           />
         </label>
@@ -72,7 +74,8 @@ const AddTask = () => {
           <textarea
             className="textarea textarea-bordered h-24 w-full"
             placeholder="Bio"
-            {...register("description", { required: true })}
+            {...register("description")}
+            defaultValue={task?.description}
           ></textarea>
         </label>
         {/* deadline */}
@@ -88,7 +91,8 @@ const AddTask = () => {
           <input
             type="date"
             placeholder="Date"
-            {...register("deadline", { required: true })}
+            {...register("deadline")}
+            defaultValue={task?.deadline}
             className="input input-bordered w-full"
           />
         </label>
@@ -103,7 +107,8 @@ const AddTask = () => {
             <span className="label-text">Priority</span>
           </div>
           <select
-            {...register("priority", { required: true })}
+            defaultValue={task?.priority}
+            {...register("priority")}
             className="select select-bordered"
           >
             <option value="low">Low</option>
@@ -125,4 +130,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default Edittask;
