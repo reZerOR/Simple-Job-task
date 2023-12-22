@@ -5,6 +5,7 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Dashboard from "../Layouts/Dashboard";
 import AddTask from "../Pages/Addtask/AddTask";
+import PreviousTasks from "../Pages/PreviousTasks.jsx/PreviousTasks";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "addtask",
         element: <AddTask></AddTask>,
+      },
+      {
+        path: "preavioustasks",
+        element: <PreviousTasks></PreviousTasks>,
       },
     ],
   },

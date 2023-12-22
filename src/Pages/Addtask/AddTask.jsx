@@ -2,10 +2,14 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
 const AddTask = () => {
   const { user } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     const taskInfo = {
       email: user?.email,
@@ -16,6 +20,12 @@ const AddTask = () => {
       status: "todo",
     };
     console.log(taskInfo);
+
+    const res = await axiosPublic.post("/tasks", taskInfo);
+    console.log(res.data);
+    if (res.data.insertedId) {
+      navigate("/dashboard/preavioustasks");
+    }
   };
   return (
     <div className="min-h-screen bg-green-fade flex">

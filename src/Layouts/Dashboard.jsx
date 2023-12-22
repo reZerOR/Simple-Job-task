@@ -83,7 +83,11 @@ const Dashboard = () => {
             data-aos-anchor-placement="top-bottom"
             className="text-center space-y-2 mb-10"
           >
-            <img className="rounded-full mx-auto" src={user?.photoURL} alt="" />
+            <img
+              className="rounded-full w-24 mx-auto"
+              src={user?.photoURL}
+              alt=""
+            />
             <p className="text-xl">{user?.displayName}</p>
             <p>{user?.email}</p>
           </div>
