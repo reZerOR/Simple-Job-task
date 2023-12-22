@@ -21,7 +21,7 @@ const Navbar = () => {
         data-aos-anchor-placement="top-bottom"
         data-aos-delay="200"
       >
-        <NavLink to={"/contact"}>Contect Us</NavLink>
+        <NavLink to={"/dashboard"}>Dashboard</NavLink>
       </li>
       <li
         data-aos="fade-down"
