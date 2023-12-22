@@ -21,7 +21,7 @@ const PreviousTasks = () => {
         Previously Added Tasks
       </h2>
       {tasks ? (
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-3 pb-10 grid-cols-1 md:grid-cols-2 justify-items-center gap-3">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-3 pb-10 grid-cols-1 md:grid-cols-2 justify-items-center gap-6">
           {tasks.map((item, index) => (
             <div
               data-aos="fade-up"
